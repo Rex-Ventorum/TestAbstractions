@@ -7,7 +7,7 @@ import java.util.List;
 public class ClassFinder {
     
     public static Class<?>[] findAllClassInstancesInProject(Class<?> inClass){
-        List<Class<?>> instanceClasses = new LinkedList<Class<?>>();
+        List<Class<?>> instanceClasses = new LinkedList<>();
         String sourceFolder = ".";
         File projectDir = new File(sourceFolder);
         File[] allProjectFiles = getAllFiles(projectDir);
@@ -18,7 +18,7 @@ public class ClassFinder {
                 if(inClass.isAssignableFrom(foundClass) && !inClass.equals(foundClass)){
                     if(!instanceClasses.contains(foundClass))instanceClasses.add(foundClass);
                 }
-            }catch(ClassNotFoundException cnf){
+            }catch(Exception e){
                 continue; //Ignore and simply move on
             }
         }// end of file loop
@@ -28,7 +28,7 @@ public class ClassFinder {
     private static File[] getAllFiles(File dir){
         if(!dir.isDirectory()) return new File[]{dir};
         else{
-            List<File> fileList = new LinkedList<File>();
+            List<File> fileList = new LinkedList<>();
             for(File file : dir.listFiles()){
                 for(File subFile : getAllFiles(file)){
                     fileList.add(subFile);
